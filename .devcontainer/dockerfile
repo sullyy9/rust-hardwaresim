@@ -1,0 +1,12 @@
+FROM rust:1.51 as rust-devcontainer
+RUN apt update
+
+# Install cross compilation tools
+RUN rustup target add x86_64-pc-windows-gnu
+RUN apt -y install mingw-w64
+
+# Install rust-analizer
+RUN rustup component add rust-src
+RUN rustup component add rustfmt
+RUN curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o /usr/bin/rust-analyzer
+RUN chmod 755 /usr/bin/rust-analyzer
